@@ -26,7 +26,7 @@ class ConverterRunner {
             System.out.println("Octal Number: ");
         } else if (base == 8) {
             System.out.println("Decimal Number: " + nc.decimalNumber());
-            System.out.println("Binary Number: " + nc.binaryNumber());
+            System.out.println("Binary Number: " + Arrays.toString(nc.convertToBinary()));
         } else {
             System.out.println("Binary Number: " + nc.binaryNumber());
             System.out.println("Octal Number: ");

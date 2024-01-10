@@ -41,34 +41,31 @@ public class NumberConverter {
     }
 
     public int[] convertToBinary() {
-        String numberAsString = "";
-        for (int y = 0; y < digits.length; y++) {
-            numberAsString += digits[y];
-        }
-
-        int baseline = Integer.parseInt(numberAsString);
-
+        int[] inDecimal = convertToDecimal();
+        int baseline = decimalNumber();
         int size = 0;
-        for (int k = 1; k < baseline; k++) {
-            k *= Math.pow(base, k);
+
+        int divideEach = baseline;
+        int modded = baseline;
+        for (int i = baseline; i != 0; i /= 2) {
             size++;
         }
-        int [] inBinary = new int[size];
         int [] binaryValue = new int[size];
-        int power = digits.length - 1;
-        for (int j = 0; j < inBinary.length; j++) {
-            inBinary[j] = 0;
-            binaryValue[j] = (int) Math.pow(2, power);
-            power--;
+        int each = 0;
+        for (int i = binaryValue.length - 1; i < 0 ; i--) {
+            divideEach /= 2;
+            modded %= 2;
+            modded = divideEach;
+
+            if (modded == 1) {
+                binaryValue[each] = 1;
+            } else {
+                binaryValue[each] = 0;
+            }
+            each++;
         }
 
-        for (int i = 0; i < binaryValue.length; i++) {
-            if (baseline >= binaryValue[i]) {
-                baseline = baseline - binaryValue[i];
-                inBinary[i] = 1;
-            }
-        }
-        return inBinary;
+        return binaryValue;
     }
 
     public int[] convertToOctal() {
