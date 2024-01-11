@@ -51,20 +51,19 @@ public class NumberConverter {
             size++;
         }
         int [] binaryValue = new int[size];
-        int each = 0;
+
         for (int i = binaryValue.length - 1; i < 0 ; i--) {
+
             divideEach /= 2;
             modded %= 2;
-            modded = divideEach;
 
             if (modded == 1) {
-                binaryValue[each] = 1;
-            } else {
-                binaryValue[each] = 0;
+                binaryValue[i] = 1;
+            } else if (modded == 0) {
+                binaryValue[i] = 0;
             }
-            each++;
+            modded = divideEach;
         }
-
         return binaryValue;
     }
 
