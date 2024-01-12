@@ -41,34 +41,42 @@ public class NumberConverter {
     }
 
     public int[] convertToBinary() {
-        int[] inDecimal = convertToDecimal();
-        int baseline = decimalNumber();
         int size = 0;
-
-        int divideEach = baseline;
-        int modded = baseline;
-        for (int i = baseline; i != 0; i /= 2) {
+        for (int i = decimalNumber(); i != 0; i /= 2) {
             size++;
         }
+
         int [] binaryValue = new int[size];
-
-        for (int i = binaryValue.length - 1; i < 0 ; i--) {
-
-            divideEach /= 2;
-            modded %= 2;
-
-            if (modded == 1) {
+        int remainder = decimalNumber();
+        int quotient = decimalNumber();
+        for (int i = size - 1; i >= 0; i--) {
+            quotient /= 2;
+            remainder %= 2;
+            if (remainder == 1) {
                 binaryValue[i] = 1;
-            } else if (modded == 0) {
-                binaryValue[i] = 0;
             }
-            modded = divideEach;
+            remainder = quotient;
         }
         return binaryValue;
     }
 
     public int[] convertToOctal() {
-        return null;
+        int size = 0;
+        for (int i = decimalNumber(); i != 0; i /= 8) {
+            size++;
+        }
+
+        int [] octalValue = new int[size];
+        int remainder = decimalNumber();
+        int quotient = decimalNumber();
+
+        for (int i = octalValue.length - 1; i >= 0; i--) {
+            quotient /= 8;
+            remainder %= 8;
+            octalValue[i] = remainder;
+            remainder = quotient;
+        }
+        return octalValue;
     }
     public int decimalNumber() {
         int num = 0;
@@ -79,10 +87,18 @@ public class NumberConverter {
     }
     public String binaryNumber() {
         String binary = "";
-        for (int i = 0; i < convertToBinary().length; i++) {
-            binary += Integer.toString(convertToBinary()[i]);
+        for (int each : convertToBinary()) {
+            binary += Integer.toString(each);
         }
         return binary;
+    }
+    public int octalNumber() {
+        String octal = "";
+        for (int each : convertToOctal()) {
+            octal += Integer.toString(each);
+        }
+        int octalVal = Integer.parseInt(octal);
+        return octalVal;
     }
 }
 
