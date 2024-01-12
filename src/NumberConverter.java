@@ -78,6 +78,41 @@ public class NumberConverter {
         }
         return octalValue;
     }
+    public String[] convertToHex() {
+        int size = 0;
+        for (int i = decimalNumber(); i != 0; i /= 16) {
+            size++;
+        }
+
+        int [] rawHexVal = new int[size];
+        int remainder = decimalNumber();
+        int quotient = decimalNumber();
+
+        for (int i = rawHexVal.length - 1; i >= 0; i--) {
+            quotient /= 16;
+            remainder %= 16;
+            rawHexVal[i] = remainder;
+            remainder = quotient;
+        }
+        String [] hexVal = new String[size];
+        for (int i = 0; i <= rawHexVal.length - 1; i++) {
+            hexVal[i] = String.valueOf(rawHexVal[i]);
+            if (rawHexVal[i] == 10) {
+                hexVal[i] = "A";
+            } else if (rawHexVal[i] == 11) {
+                hexVal[i] = "B";
+            } else if (rawHexVal[i] == 12) {
+                hexVal[i] = "C";
+            } else if (rawHexVal[i] == 13) {
+                hexVal[i] = "D";
+            } else if (rawHexVal[i] == 14) {
+                hexVal[i] = "E";
+            } else if (rawHexVal[i] == 15) {
+                hexVal[i] = "F";
+            }
+        }
+        return hexVal;
+    }
     public int decimalNumber() {
         int num = 0;
         for (int i = 0; i < convertToDecimal().length; i++) {
