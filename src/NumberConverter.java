@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class NumberConverter {
     int[] digits;
     int base;
@@ -78,6 +80,7 @@ public class NumberConverter {
         }
         return octalValue;
     }
+
     public String[] convertToHex() {
         int size = 0;
         for (int i = decimalNumber(); i != 0; i /= 16) {
@@ -113,6 +116,26 @@ public class NumberConverter {
         }
         return hexVal;
     }
+
+    public String[] convertToAnyBase() {
+        int size = 0;
+        for (int i = decimalNumber(); i != 0; i /= base) {
+            size++;
+        }
+
+        String [] baseChange = new String[size];
+        int remainder = decimalNumber();
+        int quotient = decimalNumber();
+
+        for (int i = baseChange.length - 1; i >= 0; i--) {
+            quotient /= base;
+            remainder %= base;
+            baseChange[i] = String.valueOf(remainder);
+            remainder = quotient;
+        }
+        return baseChange;
+}
+
     public int decimalNumber() {
         int num = 0;
         for (int i = 0; i < convertToDecimal().length; i++) {
@@ -134,6 +157,9 @@ public class NumberConverter {
         }
         int octalVal = Integer.parseInt(octal);
         return octalVal;
+    }
+    public void acceptHex(int index, int num) {
+        digits[index] = num;
     }
 }
 
