@@ -3,6 +3,7 @@ import java.util.HashMap;
 public class NumberConverter {
     int[] digits;
     int base;
+    private static HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
 
     public NumberConverter(int number, int base) {
 
@@ -16,6 +17,60 @@ public class NumberConverter {
             digits[i] = d;
         }
         this.base = base;
+        hash_map.put(10, "A");
+        hash_map.put(11, "B");
+        hash_map.put(12, "C");
+        hash_map.put(13, "D");
+        hash_map.put(14, "E");
+        hash_map.put(15, "F");
+        hash_map.put(16, "G");
+        hash_map.put(17, "H");
+        hash_map.put(18, "I");
+        hash_map.put(19, "J");
+        hash_map.put(20, "K");
+        hash_map.put(21, "L");
+        hash_map.put(22, "M");
+        hash_map.put(23, "N");
+        hash_map.put(24, "O");
+        hash_map.put(25, "P");
+        hash_map.put(26, "Q");
+        hash_map.put(27, "R");
+        hash_map.put(28, "S");
+        hash_map.put(29, "T");
+        hash_map.put(30, "U");
+        hash_map.put(31, "V");
+        hash_map.put(32, "W");
+        hash_map.put(33, "X");
+        hash_map.put(34, "Y");
+        hash_map.put(35, "Z");
+        hash_map.put(36, "a");
+        hash_map.put(37, "b");
+        hash_map.put(38, "c");
+        hash_map.put(39, "d");
+        hash_map.put(40, "e");
+        hash_map.put(41, "f");
+        hash_map.put(42, "g");
+        hash_map.put(43, "h");
+        hash_map.put(44, "i");
+        hash_map.put(45, "j");
+        hash_map.put(46, "k");
+        hash_map.put(47, "l");
+        hash_map.put(48, "m");
+        hash_map.put(49, "n");
+        hash_map.put(50, "o");
+        hash_map.put(51, "p");
+        hash_map.put(52, "q");
+        hash_map.put(53, "r");
+        hash_map.put(54, "s");
+        hash_map.put(55, "t");
+        hash_map.put(56, "u");
+        hash_map.put(57, "v");
+        hash_map.put(58, "w");
+        hash_map.put(59, "x");
+        hash_map.put(60, "y");
+        hash_map.put(61, "z");
+        hash_map.put(62, "+");
+        hash_map.put(63, "/");
     }
 
     public String displayOriginalNumber() {
@@ -47,7 +102,6 @@ public class NumberConverter {
         for (int i = decimalNumber(); i != 0; i /= 2) {
             size++;
         }
-
         int [] binaryValue = new int[size];
         int remainder = decimalNumber();
         int quotient = decimalNumber();
@@ -67,7 +121,6 @@ public class NumberConverter {
         for (int i = decimalNumber(); i != 0; i /= 8) {
             size++;
         }
-
         int [] octalValue = new int[size];
         int remainder = decimalNumber();
         int quotient = decimalNumber();
@@ -86,7 +139,6 @@ public class NumberConverter {
         for (int i = decimalNumber(); i != 0; i /= 16) {
             size++;
         }
-
         int [] rawHexVal = new int[size];
         int remainder = decimalNumber();
         int quotient = decimalNumber();
@@ -117,23 +169,35 @@ public class NumberConverter {
         return hexVal;
     }
 
-    public String[] convertToAnyBase() {
+    public String[] convertToAnyBase(int num) {
         int size = 0;
-        for (int i = decimalNumber(); i != 0; i /= base) {
+        for (int i = num; i != 0; i /= base) {
             size++;
         }
-
-        String [] baseChange = new String[size];
-        int remainder = decimalNumber();
-        int quotient = decimalNumber();
+        int [] baseChange = new int[size];
+        int remainder = num;
+        int quotient = num;
 
         for (int i = baseChange.length - 1; i >= 0; i--) {
             quotient /= base;
             remainder %= base;
-            baseChange[i] = String.valueOf(remainder);
+            baseChange[i] = remainder;
             remainder = quotient;
         }
-        return baseChange;
+
+        String[] inStr = new String[baseChange.length];
+        for (int k = 0; k < baseChange.length; k++) {
+            inStr[k] = String.valueOf(baseChange[k]);
+        }
+
+        for (int j = 0; j < baseChange.length; j++) {
+            int val = baseChange[j];
+            if (hash_map.containsKey(val)) {
+                inStr[j] = hash_map.get(val);
+            }
+        }
+
+        return inStr;
 }
 
     public int decimalNumber() {
@@ -158,8 +222,12 @@ public class NumberConverter {
         int octalVal = Integer.parseInt(octal);
         return octalVal;
     }
-    public void acceptHex(int index, int num) {
-        digits[index] = num;
+    public String hexNumber() {
+        String hex = "";
+        for (String each : convertToHex()) {
+            hex += each;
+        }
+        return hex;
     }
 }
 
