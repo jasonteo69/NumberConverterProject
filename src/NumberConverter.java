@@ -3,8 +3,12 @@ import java.util.HashMap;
 public class NumberConverter {
     int[] digits;
     int base;
+    //Needed to assign numbers 1-63 certain values
     private static HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
 
+    /*
+     * Constructor that initializes each private variable and maps each number from 10-63 to its respective String value
+     */
     public NumberConverter(int number, int base) {
 
         String numberAsString = Integer.toString(number);
@@ -17,6 +21,7 @@ public class NumberConverter {
             digits[i] = d;
         }
         this.base = base;
+        //Digit Map
         hash_map.put(10, "A");
         hash_map.put(11, "B");
         hash_map.put(12, "C");
@@ -72,7 +77,9 @@ public class NumberConverter {
         hash_map.put(62, "+");
         hash_map.put(63, "/");
     }
-
+    /*
+     * returns private instance variable "number" as a string
+     */
     public String displayOriginalNumber() {
         String o = "";
         for (int i = 0; i < digits.length; i++) {
@@ -81,11 +88,15 @@ public class NumberConverter {
         o = o + "\n";
         return o;
     }
-
+    /*
+     * returns private instance variable "digits"
+     */
     public int[] getDigits() {
         return digits;
     }
-
+    /*
+     * returns an int array in decimal (base 10)
+     */
     public int[] convertToDecimal() {
         int[] digitValues = new int[digits.length];
         int power = digits.length - 1;
@@ -96,7 +107,9 @@ public class NumberConverter {
         }
         return digitValues;
     }
-
+    /*
+     * returns an int array in binary (base 2)
+     */
     public int[] convertToBinary() {
         int size = 0;
         for (int i = decimalNumber(); i != 0; i /= 2) {
@@ -115,7 +128,9 @@ public class NumberConverter {
         }
         return binaryValue;
     }
-
+    /*
+     * returns an int array in octal (base 8)
+     */
     public int[] convertToOctal() {
         int size = 0;
         for (int i = decimalNumber(); i != 0; i /= 8) {
@@ -133,7 +148,9 @@ public class NumberConverter {
         }
         return octalValue;
     }
-
+    /*
+     * returns a string array in hexadecimal (base 16)
+     */
     public String[] convertToHex() {
         int size = 0;
         for (int i = decimalNumber(); i != 0; i /= 16) {
@@ -168,7 +185,10 @@ public class NumberConverter {
         }
         return hexVal;
     }
-
+    /*
+     * returns a string array in the base of private int "base"
+     * @param num is the number that is to be converted in initialized base
+     */
     public String[] convertToAnyBase(int num) {
         int size = 0;
         for (int i = num; i != 0; i /= base) {
@@ -199,7 +219,9 @@ public class NumberConverter {
 
         return inStr;
 }
-
+    /*
+     * returns number as an int in decimal (base 10)
+     */
     public int decimalNumber() {
         int num = 0;
         for (int i = 0; i < convertToDecimal().length; i++) {
@@ -207,6 +229,9 @@ public class NumberConverter {
         }
         return num;
     }
+    /*
+     * returns number as a string in binary (base 2)
+     */
     public String binaryNumber() {
         String binary = "";
         for (int each : convertToBinary()) {
@@ -214,6 +239,9 @@ public class NumberConverter {
         }
         return binary;
     }
+    /*
+     * returns number as an int in octal (base 8)
+     */
     public int octalNumber() {
         String octal = "";
         for (int each : convertToOctal()) {
@@ -222,6 +250,9 @@ public class NumberConverter {
         int octalVal = Integer.parseInt(octal);
         return octalVal;
     }
+    /*
+     * returns number as a string in hexadecimal (base 16)
+     */
     public String hexNumber() {
         String hex = "";
         for (String each : convertToHex()) {
