@@ -70,6 +70,14 @@ class ConverterRunner {
                     n = Integer.parseInt(number);
                 }
                 if (base == 10 && yesNo.equals("y")) {
+                    if (newBase == 1) {
+                        String asBaseOne = "";
+                        for (int i = 0; i < n; i++) {
+                            asBaseOne += "1";
+                        }
+                        System.out.println(asBaseOne);
+                        System.exit(1);
+                    }
                     NumberConverter change = new NumberConverter(n, newBase);
                     String[] cool = change.convertToAnyBase(n);
                     String each = "";
